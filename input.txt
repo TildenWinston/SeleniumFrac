@@ -1,0 +1,13 @@
+System: (mac or win)
+win
+Max length:
+3
+Numerator:
+4
+Begin:
+3
+5
+7
+11
+13
+17

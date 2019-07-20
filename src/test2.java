@@ -8,42 +8,89 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebDriver;
+import java.io.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class test2 {
-    public static void main(String[] args){
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+
+    public static void main(String[] args)throws Exception{
+
+
+
+
+        File file = new File(".\\input.txt");
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String st;
+
+        st = br.readLine();
+        String platform = br.readLine();
+
+        st = br.readLine();
+        String maxLength = br.readLine();
+        st = br.readLine();
+        String numerator = br.readLine();
+
+        st = br.readLine();
+//        while ((st = br.readLine()) != null)
+//            System.out.println(st);
+
+
 
         //comment the above 2 lines and uncomment below 2 lines to use Chrome
-        System.setProperty("webdriver.chrome.driver",".\\chromedriver_win32\\chromedriver.exe");
-        //System.setProperty("webdriver.chrome.driver",".\\chromedriver_mac64\\chromedriver.exe");
+        if(platform.equals("mac")){
+            System.setProperty("webdriver.chrome.driver",".\\chromedriver_mac64\\chromedriver.exe");
+        }
+        else {
+            System.setProperty("webdriver.chrome.driver", ".\\chromedriver_win32\\chromedriver.exe");
+        }
+
         WebDriver driver = new ChromeDriver();
 
-
-        //FirefoxDriver driver = new FirefoxDriver();
+    //FirefoxDriver driver = new FirefoxDriver();
         //ChromeDriver driver = new ChromeDriver();
         driver.get("http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fractions/egyptian.html#section6.1.1");
+
+        WebElement lenSet=driver.findElement(By.xpath("//*[@id=\"ef2len\"]"));
+        lenSet.clear();
+        lenSet.sendKeys(maxLength);
+
+
         WebElement top=driver.findElement(By.xpath("//*[@id=\"ef2top\"]"));
-        top.sendKeys("4");
+        top.clear();
+        top.sendKeys(numerator);
 
-        WebElement bottom=driver.findElement(By.xpath("//*[@id=\"ef2bot\"]"));
-        bottom.sendKeys("7");
+        while((st = br.readLine()) != null) {
 
-        WebElement button=driver.findElement(By.xpath("/html/body/div[19]/form/div/table/tbody/tr/td[1]/input"));
-        button.click();
+            WebElement bottom = driver.findElement(By.xpath("//*[@id=\"ef2bot\"]"));
+            bottom.clear();
+            bottom.sendKeys(st);
 
+            WebElement button=driver.findElement(By.xpath("/html/body/div[19]/form/div/table/tbody/tr/td[1]/input"));
+            button.click();
+        }
 
-        driver.get("http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fractions/egyptian.html#section6.1.1");
-        WebElement top1=driver.findElement(By.xpath("//*[@id=\"ef2top\"]"));
-        top1.sendKeys("4");
-
-        WebElement bottom1=driver.findElement(By.xpath("//*[@id=\"ef2bot\"]"));
-        bottom1.sendKeys("7");
-
-        WebElement button1=driver.findElement(By.xpath("/html/body/div[19]/form/div/table/tbody/tr/td[1]/input"));
-        button1.click();
 
         WebElement results=driver.findElement(By.xpath("//*[@id=\"msgef2\"]"));
         System.out.println(results.getText());
+        System.out.println(System.nanoTime());
+
+
+
+        File out = new File("output" + sdf.format(new Timestamp(System.currentTimeMillis())) + ".txt");
+        out.createNewFile();
+
+        FileWriter output = new FileWriter(out);
+        output.write(results.getText());
+        output.flush();
+        output.close();
+
 
         //*[@id="msgef2"]/text()[1]
     }
