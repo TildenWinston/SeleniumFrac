@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class test2 {
