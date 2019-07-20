@@ -2,7 +2,7 @@
 //import org.openqa.selenium.WebElement;
 //import org.openqa.selenium.chrome.ChromeDriver;
 //
-//public class test2 {
+//public class egypFrac {
 //}
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 
-public class test2 {
+public class egypFrac {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
